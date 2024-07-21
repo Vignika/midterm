@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegance Haven - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="header-left">
+                    <img src="./images/logo.png" alt="Company Logo" class="logo">
+                </div>
+                <h1>Elegance Haven</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="btn" id="open-login">Login</button>
+                <button class="btn" id="open-register">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="scrolling-items">
+        <div class="item">
+            <img src="./images/watches.jpg" alt="Item 1" class="item-image">
+        </div>
+        <div class="item">
+            <img src="./images/bag.jpg" alt="Item 2" class="item-image">
+        </div>
+        <div class="item">
+            <img src="./images/perfume.jpg" alt="Item 3" class="item-image">
+        </div>
+    </div>
+
+    <section id="products" class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="product-container">
+                <!-- Example Product Card -->
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.FQILSKIHY1lYwZAFEaNYqQAAAA?rs=1&pid=ImgDetMain" alt="Luxury Watch">
+                    <div class="product-info">
+                        <a href="categories.html" class="btn view-details">Luxury Watches</a>
+                    </div>
+                </div>
+                <!-- Add more product cards as needed -->
+                <div class="product-card1">
+                    <img src="https://businesstoday.co.ke/wp-content/uploads/2016/07/ladies-handbags.jpg" alt="Luxury Bag">
+                    <div class="product-info">
+                        <a href="bags.html" class="btn view-details">Luxury Bags</a>
+                    </div>
+                </div>
+                <div class="product-card2">
+                    <img src="https://cakeandlace.com/wp-content/uploads/2018/08/Coco-Chanel-Wedding-Day-Perfume-2-400x402.jpg" alt="Luxury Perfume">
+                    <div class="product-info">
+                        <a href="perfumes.html" class="btn view-details">Luxury Perfumes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-register">
+        <div class="modal" id="login-modal">
+            <div class="modal-content">
+                <span class="close" id="close-login">&times;</span>
+                <h2>Login</h2>
+                <form>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+            </div>
+        </div>
+
+        <div class="modal" id="register-modal">
+            <div class="modal-content">
+                <span class="close" id="close-register">&times;</span>
+                <h2>Register</h2>
+                <form>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Luxe Haven. All rights reserved.</p>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

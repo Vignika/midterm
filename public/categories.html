@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Elegance Haven</title>
+    <link rel="stylesheet" href="categories.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="home">
+                <nav>
+                    <ul>
+                        <li><a href="index.html"> Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="logo">
+                <div class="header-left">
+                    <img src="./images/logo.png" alt="Company Logo" class="logo">
+                </div>
+                <h1>Elegance Haven</h1>
+            </div>
+        </div>
+    </header>
+
+    <section id="categories">
+        <div class="container">
+            <div class="sidebar">
+                <h2>Categories</h2>
+                <ul>
+                    <li><a href="#" data-category="men">Men's Wear</a></li>
+                    <li><a href="#" data-category="women">Women's Wear</a></li>
+                    <li><a href="#" data-category="brands">Top Brands</a></li>
+                </ul>
+            </div>
+            <div class="products">
+                <h2>Products</h2>
+                <div id="product-list">
+                    <!-- Existing Products -->
+                    <div class="scrolling-items">
+                        <div class="item">
+                            <img src="./images/watches.jpg" alt="Item 1" class="item-image">
+                        </div>
+                        <div class="item">
+                            <img src="./images/bag.jpg" alt="Item 2" class="item-image">
+                        </div>
+                        <div class="item">
+                            <img src="./images/perfume.jpg" alt="Item 3" class="item-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Product</h2>
+            <form id="add-product-form">
+                <label for="product-name">Name:</label>
+                <input type="text" id="product-name" required>
+    
+                <label for="product-image">Image URL:</label>
+                <input type="text" id="product-image" required>
+    
+                <label for="product-price">Price:</label>
+                <input type="text" id="product-price" required>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Elegance Haven. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="categories.js"></script>
+</body>
+</html>
