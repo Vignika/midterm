@@ -55,16 +55,12 @@ app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if user already exists by name or email
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Create new user
     const newUser = new User({ name, email, password });
-
-    // Save user to database
     const savedUser = await newUser.save();
     res.status(201).json({ message: "Registration successful", user: savedUser });
   } catch (err) {
@@ -109,11 +105,6 @@ app.post("/add-product", async (req, res) => {
   }
 });
 
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 app.get("/products", async (req, res) => {
   const { category } = req.query;
   try {
@@ -124,3 +115,41 @@ app.get("/products", async (req, res) => {
     res.status(500).json({ message: "Error fetching products" });
   }
 });
+
+// Update Product
+app.put("/update-product/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, image, price } = req.body;
+
+  if (!name || !image || !price) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    const updatedProduct = await Watches.findByIdAndUpdate(id, { name, image, price }, { new: true });
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
+  } catch (err) {
+    console.error("Error updating product:", err.message);
+    res.status(500).json({ message: "Error updating product: " + err.message });
+  }
+});
+
+// Delete Product
+app.delete("/delete-product/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedProduct = await Watches.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting product:", err.message);
+    res.status(500).json({ message: "Error deleting product: " + err.message });
+  }
+});
+
