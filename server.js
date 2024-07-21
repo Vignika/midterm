@@ -8,10 +8,10 @@ const PORT = process.env.PORT || 5002;
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/projectdb')
   .then(() => {
-    console.log("Connected to db server");
+    console.log("Connected to MongoDB");
   })
   .catch((err) => {
-    console.error("Unable to connect with server: " + err);
+    console.error("Error connecting to MongoDB:", err.message);
   });
 
 // Define User Schema and Model
@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public'))); // Update this path
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start Server
 app.listen(PORT, () => {
@@ -48,34 +48,79 @@ app.listen(PORT, () => {
 
 // Routes
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html')); // Update this path
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
-  console.log("Received data:", req.body);
 
   try {
     // Check if user already exists by name or email
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
     if (existingUser) {
-      console.log("User already exists");
       return res.status(400).json({ message: "User already exists" });
     }
 
     // Create new user
-    const newUser = new User({
-      name,
-      email,
-      password
-    });
+    const newUser = new User({ name, email, password });
 
     // Save user to database
     const savedUser = await newUser.save();
-    console.log("User registered successfully:", savedUser);
-    res.status(201).json({ message: "Registration successfully completed", user: savedUser });
+    res.status(201).json({ message: "Registration successful", user: savedUser });
   } catch (err) {
-    console.error("Error registering user:", err);
+    console.error("Error registering user:", err.message);
     res.status(500).json({ message: "Error registering user" });
+  }
+});
+
+// Define Watches Schema and Model
+const watchesSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: String,
+    required: true
+  }
+});
+
+const Watches = mongoose.model('Watches', watchesSchema);
+
+app.post("/add-product", async (req, res) => {
+  const { name, image, price } = req.body;
+
+  if (!name || !image || !price) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    const newWatch = new Watches({ name, image, price });
+    await newWatch.save();
+    res.status(201).json({ message: "Product added successfully!" });
+  } catch (err) {
+    console.error("Error adding product:", err.message);
+    res.status(500).json({ message: "Error adding product: " + err.message });
+  }
+});
+
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get("/products", async (req, res) => {
+  const { category } = req.query;
+  try {
+    const products = await Watches.find({}); // Optionally filter by category if needed
+    res.status(200).json(products);
+  } catch (err) {
+    console.error("Error fetching products:", err.message);
+    res.status(500).json({ message: "Error fetching products" });
   }
 });
